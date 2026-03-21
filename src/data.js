@@ -158,14 +158,9 @@ export const KATAKANA = [
 ];
 
 // Pair modes:
-//   'alphabet' — both sides are Latin; same letter index, each language has its own word
-//   'latin-jp' — Latin letters are the hero; secondary word is the Japanese translation of the Latin word
-//   'kana'     — both sides are kana; zip by index (same sound, two scripts)
+//   'alphabet' — both Latin scripts; same letter, each language shows its own phonetic sound and word
+//   'kana'     — both kana scripts; same sound shown in hiragana and katakana side by side
 export const PAIRS = [
   { id: 'en-es', mode: 'alphabet', labelA: 'English',  labelB: 'Español',  colorA: '#6B8F71', colorB: '#C17B5A', scriptA: 'latin', scriptB: 'latin', dataA: ENGLISH,  dataB: SPANISH  },
-  { id: 'en-hi', mode: 'latin-jp', labelA: 'English',  labelB: '日本語',    colorA: '#6B8F71', colorB: '#6B6FA8', scriptA: 'latin', scriptB: 'kana',  dataA: ENGLISH,  dataB: null     },
-  { id: 'en-ka', mode: 'latin-jp', labelA: 'English',  labelB: '日本語',    colorA: '#6B8F71', colorB: '#6B6FA8', scriptA: 'latin', scriptB: 'kana',  dataA: ENGLISH,  dataB: null     },
-  { id: 'es-hi', mode: 'latin-jp', labelA: 'Español',  labelB: '日本語',    colorA: '#C17B5A', colorB: '#6B6FA8', scriptA: 'latin', scriptB: 'kana',  dataA: SPANISH,  dataB: null     },
-  { id: 'es-ka', mode: 'latin-jp', labelA: 'Español',  labelB: '日本語',    colorA: '#C17B5A', colorB: '#6B6FA8', scriptA: 'latin', scriptB: 'kana',  dataA: SPANISH,  dataB: null     },
-  { id: 'hi-ka', mode: 'kana',     labelA: 'ひらがな', labelB: 'カタカナ',  colorA: '#6B6FA8', colorB: '#6B6FA8', scriptA: 'kana',  scriptB: 'kana',  dataA: HIRAGANA, dataB: KATAKANA },
+  { id: 'hi-ka', mode: 'kana',     labelA: 'ひらがな', labelB: 'カタカナ',  colorA: '#6B6FA8', colorB: '#5A5A9A', scriptA: 'kana',  scriptB: 'kana',  dataA: HIRAGANA, dataB: KATAKANA },
 ];

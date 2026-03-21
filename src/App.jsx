@@ -4,19 +4,9 @@ import { PAIRS } from './data';
 import './App.css';
 
 // ─── Deck builder ─────────────────────────────────────────────────────────────
-// 'alphabet' : EN+ES — zip by index (both Latin, same letter)
-// 'latin-jp' : Latin+Kana — Latin letter is hero, secondary word is JP translation
-// 'kana'     : Hiragana+Katakana — zip by index (both kana, same sound)
+// Both modes zip cards by index — 'alphabet' matches same letter, 'kana' matches same sound.
 
 function buildDeck(pair) {
-  if (pair.mode === 'latin-jp') {
-    // Each card: Latin primary card + synthetic JP word object
-    return pair.dataA.map((card) => ({
-      cardA: card,
-      cardB: { word: card.jpWord, wordRomaji: card.jpRomaji, emoji: '—' },
-    }));
-  }
-  // 'alphabet' and 'kana': zip by index
   const len = Math.min(pair.dataA.length, pair.dataB.length);
   return Array.from({ length: len }, (_, i) => ({
     cardA: pair.dataA[i],
@@ -65,10 +55,9 @@ function SettingsScreen({ onStart, currentPairId }) {
 // ─── Flash Card ───────────────────────────────────────────────────────────────
 
 function FlashCard({ cardA, cardB, pair }) {
-  const isKanaA  = pair.scriptA === 'kana';
-  const isKanaB  = pair.scriptB === 'kana';
-  const isHiKa   = pair.mode === 'kana';       // Hiragana+Katakana: both chars shown
-  const isLatinJp = pair.mode === 'latin-jp';  // Latin+JP: secondary is a translation word only
+  const isKanaA = pair.scriptA === 'kana';
+  const isKanaB = pair.scriptB === 'kana';
+  const isHiKa  = pair.mode === 'kana'; // Hiragana+Katakana: both characters as co-heroes
 
   return (
     <div className="card">
@@ -113,8 +102,7 @@ function FlashCard({ cardA, cardB, pair }) {
         {/* Side B */}
         <div className="word-block">
           <span className={`word-text ${isKanaB ? 'word-kana' : ''}`}>{cardB.word}</span>
-          {/* Show romaji for kana words (both native kana cards and JP translations) */}
-          {(isKanaB || isLatinJp) && cardB.wordRomaji && (
+          {isKanaB && cardB.wordRomaji && (
             <span className="word-romaji">{cardB.wordRomaji}</span>
           )}
           <span className="word-lang" style={{ color: pair.colorB }}>{pair.labelB}</span>
