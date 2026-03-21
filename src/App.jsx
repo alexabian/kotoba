@@ -4,9 +4,18 @@ import { PAIRS } from './data';
 import './App.css';
 
 // ─── Deck builder ─────────────────────────────────────────────────────────────
-// Both modes zip cards by index — 'alphabet' matches same letter, 'kana' matches same sound.
+// 'alphabet': match by letter value (handles Ñ offset in Spanish)
+// 'kana':     zip by index (same sound position in both syllabaries)
 
 function buildDeck(pair) {
+  if (pair.mode === 'alphabet') {
+    return pair.dataA
+      .map((cardA) => {
+        const cardB = pair.dataB.find((c) => c.letter === cardA.letter);
+        return cardB ? { cardA, cardB } : null;
+      })
+      .filter(Boolean);
+  }
   const len = Math.min(pair.dataA.length, pair.dataB.length);
   return Array.from({ length: len }, (_, i) => ({
     cardA: pair.dataA[i],
