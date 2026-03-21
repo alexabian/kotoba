@@ -1,0 +1,363 @@
+/* ─── Tokens ──────────────────────────────────────────────────────────────── */
+:root {
+  --bg:          #F7F3EE;
+  --surface:     #FFFFFF;
+  --text:        #2C2C2C;
+  --text-muted:  #9A9A9A;
+  --border:      #E8E2DA;
+  --radius:      20px;
+  --card-shadow: 0 4px 32px rgba(44, 44, 44, 0.08);
+}
+
+/* ─── Reset ───────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', 'Noto Sans JP', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Settings Screen ─────────────────────────────────────────────────────── */
+.settings-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: 24px;
+  background: var(--bg);
+}
+
+.settings-inner {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.app-title-block {
+  text-align: center;
+  line-height: 1;
+}
+
+.app-title-jp {
+  display: block;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: clamp(48px, 12vw, 72px);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.app-title-en {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(14px, 4vw, 18px);
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  margin-top: 4px;
+}
+
+.settings-hint {
+  font-size: 14px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.pair-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pair-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  cursor: pointer;
+  font-family: 'DM Sans', 'Noto Sans JP', sans-serif;
+  font-size: 15px;
+  color: var(--text);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.pair-option:hover {
+  border-color: #C8BFB5;
+  box-shadow: 0 2px 12px rgba(44,44,44,0.06);
+}
+
+.pair-option.selected {
+  border-color: var(--text);
+  box-shadow: 0 2px 16px rgba(44,44,44,0.10);
+}
+
+.pair-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pair-label {
+  font-family: 'DM Sans', 'Noto Sans JP', sans-serif;
+}
+
+.pair-sep {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin: 0 2px;
+}
+
+.start-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--text);
+  color: var(--bg);
+  border: none;
+  border-radius: 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.start-btn:hover { opacity: 0.85; }
+.start-btn:active { opacity: 0.7; }
+
+/* ─── Deck Screen ─────────────────────────────────────────────────────────── */
+.deck-screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+  width: 100%;
+  background: var(--bg);
+  padding: 16px;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.settings-icon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 8px;
+  line-height: 1;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+
+.settings-icon:hover { opacity: 1; }
+
+/* ─── Progress Bar ────────────────────────────────────────────────────────── */
+.progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--border);
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 0 2px 2px 0;
+  transition: width 0.3s ease;
+}
+
+/* ─── Card Wrapper & Animation ────────────────────────────────────────────── */
+.card-wrapper {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes slideFromRight {
+  from { transform: translateX(40px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+@keyframes slideFromLeft {
+  from { transform: translateX(-40px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+
+.card-wrapper.slide-left  { animation: slideFromRight 0.2s ease; }
+.card-wrapper.slide-right { animation: slideFromLeft  0.2s ease; }
+
+/* ─── Card ────────────────────────────────────────────────────────────────── */
+.card {
+  width: 100%;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  padding: clamp(24px, 6vw, 48px) clamp(24px, 6vw, 48px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(12px, 3vw, 20px);
+}
+
+/* ─── Emoji ───────────────────────────────────────────────────────────────── */
+.card-emoji {
+  font-size: clamp(56px, 15vw, 96px);
+  line-height: 1;
+  text-align: center;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.06));
+}
+
+/* ─── Letter ──────────────────────────────────────────────────────────────── */
+.card-letters {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  line-height: 1;
+}
+
+.letter {
+  font-weight: 700;
+  line-height: 1;
+}
+
+.letter-latin {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(100px, 26vw, 160px);
+}
+
+.letter-kana {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: clamp(90px, 22vw, 140px);
+}
+
+.letter-sep {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(32px, 8vw, 48px);
+  color: var(--text-muted);
+  font-weight: 300;
+  align-self: center;
+}
+
+/* ─── Phonetic ────────────────────────────────────────────────────────────── */
+.card-phonetic {
+  text-align: center;
+}
+
+.phonetic {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(13px, 3vw, 16px);
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* ─── Words ───────────────────────────────────────────────────────────────── */
+.card-words {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.word-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.word-text {
+  font-family: 'DM Sans', 'Noto Sans JP', sans-serif;
+  font-size: clamp(16px, 4.5vw, 22px);
+  font-weight: 500;
+  color: var(--text);
+  text-align: center;
+}
+
+.word-kana {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.word-romaji {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(11px, 2.5vw, 13px);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.word-lang {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(10px, 2.5vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.word-divider {
+  width: 1px;
+  height: 48px;
+  background: var(--border);
+  align-self: center;
+  flex-shrink: 0;
+}
+
+/* ─── Card Counter ────────────────────────────────────────────────────────── */
+.card-counter {
+  position: absolute;
+  bottom: 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  opacity: 0.6;
+}
+
+/* ─── Responsive ──────────────────────────────────────────────────────────── */
+@media (min-width: 768px) {
+  .deck-screen {
+    padding: 32px;
+  }
+
+  .card {
+    padding: 52px 56px;
+  }
+}
+
+/* Ensure card fills height nicely on landscape phones */
+@media (max-height: 600px) {
+  .card-emoji     { font-size: 40px; }
+  .letter-latin   { font-size: 80px; }
+  .letter-kana    { font-size: 72px; }
+  .card           { gap: 8px; padding: 16px 24px; }
+}

@@ -1,0 +1,13 @@
+/* Minimal base reset — all app styles are in App.css */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: #F7F3EE;
+  color-scheme: light;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
