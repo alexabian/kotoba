@@ -3,21 +3,25 @@ import { useSwipeable } from 'react-swipeable';
 import { PAIRS } from './data';
 import './App.css';
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+// ─── Deck builder ─────────────────────────────────────────────────────────────
+// 'alphabet' : EN+ES — zip by index (both Latin, same letter)
+// 'latin-jp' : Latin+Kana — Latin letter is hero, secondary word is JP translation
+// 'kana'     : Hiragana+Katakana — zip by index (both kana, same sound)
 
-function getWord(card) {
-  return card.word ?? '';
-}
-
-// For cross-pair cards we zip the two card lists at matching indices.
-// If lengths differ, we cap at the shorter one.
 function buildDeck(pair) {
-  const len = Math.min(pair.dataA.length, pair.dataB.length);
-  const deck = [];
-  for (let i = 0; i < len; i++) {
-    deck.push({ cardA: pair.dataA[i], cardB: pair.dataB[i] });
+  if (pair.mode === 'latin-jp') {
+    // Each card: Latin primary card + synthetic JP word object
+    return pair.dataA.map((card) => ({
+      cardA: card,
+      cardB: { word: card.jpWord, wordRomaji: card.jpRomaji, emoji: '—' },
+    }));
   }
-  return deck;
+  // 'alphabet' and 'kana': zip by index
+  const len = Math.min(pair.dataA.length, pair.dataB.length);
+  return Array.from({ length: len }, (_, i) => ({
+    cardA: pair.dataA[i],
+    cardB: pair.dataB[i],
+  }));
 }
 
 // ─── Settings Screen ──────────────────────────────────────────────────────────
@@ -61,28 +65,24 @@ function SettingsScreen({ onStart, currentPairId }) {
 // ─── Flash Card ───────────────────────────────────────────────────────────────
 
 function FlashCard({ cardA, cardB, pair }) {
-  const isKanaA = pair.scriptA === 'kana';
-  const isKanaB = pair.scriptB === 'kana';
-  const isHiKa  = pair.id === 'hi-ka';
-
-  const emoji = cardA.emoji !== '—' ? cardA.emoji : (cardB.emoji !== '—' ? cardB.emoji : '');
-  const wordA  = getWord(cardA);
-  const wordB  = getWord(cardB);
+  const isKanaA  = pair.scriptA === 'kana';
+  const isKanaB  = pair.scriptB === 'kana';
+  const isHiKa   = pair.mode === 'kana';       // Hiragana+Katakana: both chars shown
+  const isLatinJp = pair.mode === 'latin-jp';  // Latin+JP: secondary is a translation word only
 
   return (
     <div className="card">
-      {/* Emoji */}
-      <div className="card-emoji">{emoji}</div>
-
       {/* Letter(s) */}
       <div className="card-letters">
         {isHiKa ? (
+          // Hiragana + Katakana: both characters as co-heroes
           <>
             <span className="letter letter-kana" style={{ color: pair.colorA }}>{cardA.letter}</span>
             <span className="letter-sep">/</span>
             <span className="letter letter-kana" style={{ color: pair.colorB }}>{cardB.letter}</span>
           </>
         ) : (
+          // All other pairs: one dominant letter (always cardA)
           <span
             className={`letter ${isKanaA ? 'letter-kana' : 'letter-latin'}`}
             style={{ color: pair.colorA }}
@@ -92,15 +92,16 @@ function FlashCard({ cardA, cardB, pair }) {
         )}
       </div>
 
-      {/* Phonetic */}
+      {/* Phonetic — always from cardA */}
       <div className="card-phonetic">
         <span className="phonetic">{cardA.phonetic}</span>
       </div>
 
       {/* Words */}
       <div className="card-words">
+        {/* Side A */}
         <div className="word-block">
-          <span className={`word-text ${isKanaA ? 'word-kana' : ''}`}>{wordA}</span>
+          <span className={`word-text ${isKanaA ? 'word-kana' : ''}`}>{cardA.word}</span>
           {isKanaA && cardA.wordRomaji && (
             <span className="word-romaji">{cardA.wordRomaji}</span>
           )}
@@ -109,9 +110,11 @@ function FlashCard({ cardA, cardB, pair }) {
 
         <div className="word-divider" />
 
+        {/* Side B */}
         <div className="word-block">
-          <span className={`word-text ${isKanaB ? 'word-kana' : ''}`}>{wordB}</span>
-          {isKanaB && cardB.wordRomaji && (
+          <span className={`word-text ${isKanaB ? 'word-kana' : ''}`}>{cardB.word}</span>
+          {/* Show romaji for kana words (both native kana cards and JP translations) */}
+          {(isKanaB || isLatinJp) && cardB.wordRomaji && (
             <span className="word-romaji">{cardB.wordRomaji}</span>
           )}
           <span className="word-lang" style={{ color: pair.colorB }}>{pair.labelB}</span>
@@ -127,9 +130,9 @@ function CardDeck({ pairId, onSettings }) {
   const pair  = PAIRS.find((p) => p.id === pairId);
   const deck  = buildDeck(pair);
 
-  const [index,    setIndex]    = useState(0);
-  const [animKey,  setAnimKey]  = useState(0);
-  const [animDir,  setAnimDir]  = useState('');
+  const [index,   setIndex]   = useState(0);
+  const [animKey, setAnimKey] = useState(0);
+  const [animDir, setAnimDir] = useState('');
 
   const navigate = useCallback((dir) => {
     const next = index + dir;
