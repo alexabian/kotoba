@@ -30,18 +30,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100dvh;
-  padding: 24px;
+  height: 100dvh;
+  padding: 32px 24px;
   background: var(--bg);
 }
 
 .settings-inner {
   width: 100%;
-  max-width: 400px;
+  max-width: 380px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
+  gap: 32px;
 }
 
 .app-title-block {
@@ -52,7 +52,7 @@ body {
 .app-title-jp {
   display: block;
   font-family: 'Noto Sans JP', sans-serif;
-  font-size: clamp(48px, 12vw, 72px);
+  font-size: clamp(52px, 14vw, 80px);
   font-weight: 700;
   color: var(--text);
   letter-spacing: -0.02em;
@@ -61,87 +61,106 @@ body {
 .app-title-en {
   display: block;
   font-family: 'DM Sans', sans-serif;
-  font-size: clamp(14px, 4vw, 18px);
+  font-size: clamp(13px, 3.5vw, 16px);
   font-weight: 400;
   color: var(--text-muted);
-  letter-spacing: 0.12em;
-  text-transform: lowercase;
-  margin-top: 4px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-top: 8px;
 }
 
 .settings-hint {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-muted);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
+/* ─── Pair option cards ───────────────────────────────────────────────────── */
 .pair-list {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .pair-option {
   width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 20px;
   background: var(--surface);
   border: 2px solid var(--border);
-  border-radius: 14px;
+  border-radius: 20px;
   cursor: pointer;
-  font-family: 'DM Sans', 'Noto Sans JP', sans-serif;
-  font-size: 15px;
-  color: var(--text);
-  transition: border-color 0.15s, box-shadow 0.15s;
+  padding: 0;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+  box-shadow: var(--card-shadow);
 }
 
 .pair-option:hover {
-  border-color: #C8BFB5;
-  box-shadow: 0 2px 12px rgba(44,44,44,0.06);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px rgba(44,44,44,0.12);
 }
 
 .pair-option.selected {
   border-color: var(--text);
-  box-shadow: 0 2px 16px rgba(44,44,44,0.10);
+  box-shadow: 0 8px 32px rgba(44,44,44,0.14);
 }
 
-.pair-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
+.pair-preview {
+  display: flex;
+  align-items: stretch;
+  height: 110px;
 }
 
-.pair-label {
+.pair-half {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 16px 12px;
+}
+
+.pair-char {
+  font-size: clamp(44px, 11vw, 60px);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.pair-lang {
   font-family: 'DM Sans', 'Noto Sans JP', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.85;
 }
 
-.pair-sep {
-  color: var(--text-muted);
-  font-size: 13px;
-  margin: 0 2px;
+.pair-divider {
+  width: 1px;
+  background: var(--border);
+  margin: 20px 0;
 }
 
+/* ─── Start button ────────────────────────────────────────────────────────── */
 .start-btn {
   width: 100%;
-  padding: 16px;
+  padding: 18px;
   background: var(--text);
   color: var(--bg);
   border: none;
-  border-radius: 14px;
+  border-radius: 16px;
   font-family: 'DM Sans', sans-serif;
   font-size: 16px;
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: opacity 0.15s, transform 0.1s;
 }
 
-.start-btn:hover { opacity: 0.85; }
-.start-btn:active { opacity: 0.7; }
+.start-btn:hover  { opacity: 0.85; transform: translateY(-1px); }
+.start-btn:active { opacity: 0.7;  transform: translateY(0); }
 
 /* ─── Deck Screen ─────────────────────────────────────────────────────────── */
 .deck-screen {

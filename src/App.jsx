@@ -26,7 +26,7 @@ function SettingsScreen({ onStart, currentPairId }) {
           <span className="app-title-jp">言葉</span>
           <span className="app-title-en">kotoba</span>
         </div>
-        <p className="settings-hint">Choose a language pair</p>
+        <p className="settings-hint">choose a language pair</p>
 
         <div className="pair-list">
           {PAIRS.map((pair) => (
@@ -35,11 +35,23 @@ function SettingsScreen({ onStart, currentPairId }) {
               className={`pair-option ${selected === pair.id ? 'selected' : ''}`}
               onClick={() => setSelected(pair.id)}
             >
-              <span className="pair-dot" style={{ background: pair.colorA }} />
-              <span className="pair-label">{pair.labelA}</span>
-              <span className="pair-sep">+</span>
-              <span className="pair-dot" style={{ background: pair.colorB }} />
-              <span className="pair-label">{pair.labelB}</span>
+              <div className="pair-preview">
+                <div className="pair-half">
+                  <span className="pair-char" style={{ color: pair.colorA,
+                    fontFamily: pair.scriptA === 'kana' ? "'Noto Sans JP', sans-serif" : "'DM Serif Display', serif" }}>
+                    {pair.previewA}
+                  </span>
+                  <span className="pair-lang" style={{ color: pair.colorA }}>{pair.labelA}</span>
+                </div>
+                <div className="pair-divider" />
+                <div className="pair-half">
+                  <span className="pair-char" style={{ color: pair.colorB,
+                    fontFamily: pair.scriptB === 'kana' ? "'Noto Sans JP', sans-serif" : "'DM Serif Display', serif" }}>
+                    {pair.previewB}
+                  </span>
+                  <span className="pair-lang" style={{ color: pair.colorB }}>{pair.labelB}</span>
+                </div>
+              </div>
             </button>
           ))}
         </div>

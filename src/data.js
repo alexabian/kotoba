@@ -161,6 +161,6 @@ export const KATAKANA = [
 //   'alphabet' — both Latin scripts; same letter, each language shows its own phonetic sound and word
 //   'kana'     — both kana scripts; same sound shown in hiragana and katakana side by side
 export const PAIRS = [
-  { id: 'en-es', mode: 'alphabet', labelA: 'English',  labelB: 'Español',  colorA: '#6B8F71', colorB: '#C17B5A', scriptA: 'latin', scriptB: 'latin', dataA: ENGLISH,  dataB: SPANISH  },
-  { id: 'hi-ka', mode: 'kana',     labelA: 'ひらがな', labelB: 'カタカナ',  colorA: '#6B6FA8', colorB: '#5A5A9A', scriptA: 'kana',  scriptB: 'kana',  dataA: HIRAGANA, dataB: KATAKANA },
+  { id: 'en-es', mode: 'alphabet', labelA: 'English',  labelB: 'Español',  colorA: '#6B8F71', colorB: '#C17B5A', scriptA: 'latin', scriptB: 'latin', dataA: ENGLISH,  dataB: SPANISH,  previewA: 'A', previewB: 'A' },
+  { id: 'hi-ka', mode: 'kana',     labelA: 'ひらがな', labelB: 'カタカナ',  colorA: '#6B6FA8', colorB: '#5A5A9A', scriptA: 'kana',  scriptB: 'kana',  dataA: HIRAGANA, dataB: KATAKANA, previewA: 'あ', previewB: 'ア' },
 ];
