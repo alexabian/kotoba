@@ -24,7 +24,7 @@ export const ENGLISH = [
   { letter: 'U', phonetic: '/ʌ/',  word: 'umbrella', emoji: '☂️', jpWord: 'かさ',         jpRomaji: 'kasa'      },
   { letter: 'V', phonetic: '/v/',  word: 'van',      emoji: '🚐', jpWord: 'バン',         jpRomaji: 'ban'       },
   { letter: 'W', phonetic: '/w/',  word: 'water',    emoji: '💧', jpWord: 'みず',         jpRomaji: 'mizu'      },
-  { letter: 'X', phonetic: '/ks/', word: 'fox',      emoji: '🦊', jpWord: 'きつね',       jpRomaji: 'kitsune'   },
+  { letter: 'X', phonetic: '/ks/', word: 'xylophone', emoji: '🎵', jpWord: 'もっきん',     jpRomaji: 'mokkin'    },
   { letter: 'Y', phonetic: '/j/',  word: 'yak',      emoji: '🐂', jpWord: 'うし',         jpRomaji: 'ushi'      },
   { letter: 'Z', phonetic: '/z/',  word: 'zebra',    emoji: '🦓', jpWord: 'しまうま',     jpRomaji: 'shimauma'  },
 ];
