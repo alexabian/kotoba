@@ -50,7 +50,9 @@ function SettingsScreen({ onStart, currentPairId }) {
                     fontFamily: pair.scriptA === 'kana' ? "'Noto Sans JP', sans-serif" : "'DM Serif Display', serif" }}>
                     {pair.previewA}
                   </span>
-                  <span className="pair-lang" style={{ color: pair.colorA }}>{pair.labelA}</span>
+                  <span className="pair-lang" style={{ color: pair.colorA }}>
+                    <span className="pair-flag">{pair.flagA}</span> {pair.labelA}
+                  </span>
                 </div>
                 <div className="pair-divider" />
                 <div className="pair-half">
@@ -58,7 +60,9 @@ function SettingsScreen({ onStart, currentPairId }) {
                     fontFamily: pair.scriptB === 'kana' ? "'Noto Sans JP', sans-serif" : "'DM Serif Display', serif" }}>
                     {pair.previewB}
                   </span>
-                  <span className="pair-lang" style={{ color: pair.colorB }}>{pair.labelB}</span>
+                  <span className="pair-lang" style={{ color: pair.colorB }}>
+                    <span className="pair-flag">{pair.flagB}</span> {pair.labelB}
+                  </span>
                 </div>
               </div>
             </button>
@@ -168,7 +172,7 @@ function CardDeck({ pairId, onSettings }) {
 
   return (
     <div className="deck-screen" {...handlers}>
-      <button className="settings-icon" onClick={onSettings} aria-label="Settings">⚙</button>
+      <button className="settings-icon" onClick={onSettings} aria-label="Back to menu" title="Back to menu">⌂</button>
 
       <div className="progress-bar">
         <div

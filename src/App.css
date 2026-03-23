@@ -134,6 +134,15 @@ body {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   opacity: 0.85;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pair-flag {
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .pair-divider {
