@@ -307,6 +307,12 @@ body {
   min-width: 0;
 }
 
+.word-emoji {
+  font-size: clamp(28px, 7vw, 40px);
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
 .word-text {
   font-family: 'DM Sans', 'Noto Sans JP', sans-serif;
   font-size: clamp(16px, 4.5vw, 22px);

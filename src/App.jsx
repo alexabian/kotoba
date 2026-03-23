@@ -111,6 +111,9 @@ function FlashCard({ cardA, cardB, pair }) {
       <div className="card-words">
         {/* Side A */}
         <div className="word-block">
+          {cardA.emoji && cardA.emoji !== '—' && (
+            <span className="word-emoji">{cardA.emoji}</span>
+          )}
           <span className={`word-text ${isKanaA ? 'word-kana' : ''}`}>{cardA.word}</span>
           {isKanaA && cardA.wordRomaji && (
             <span className="word-romaji">{cardA.wordRomaji}</span>
@@ -122,6 +125,9 @@ function FlashCard({ cardA, cardB, pair }) {
 
         {/* Side B */}
         <div className="word-block">
+          {cardB.emoji && cardB.emoji !== '—' && (
+            <span className="word-emoji">{cardB.emoji}</span>
+          )}
           <span className={`word-text ${isKanaB ? 'word-kana' : ''}`}>{cardB.word}</span>
           {isKanaB && cardB.wordRomaji && (
             <span className="word-romaji">{cardB.wordRomaji}</span>
