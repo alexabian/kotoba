@@ -32,8 +32,8 @@ function SettingsScreen({ onStart, currentPairId }) {
     <div className="settings-screen">
       <div className="settings-inner">
         <div className="app-title-block">
-          <span className="app-title-jp">言葉</span>
-          <span className="app-title-en">kotoba</span>
+          <span className="app-title-jp">げんごじ</span>
+          <span className="app-title-en">Gengoji</span>
         </div>
         <p className="settings-hint">choose a language pair</p>
 
